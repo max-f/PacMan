@@ -15,6 +15,61 @@ public class Board {
     private List<Point2D> ghostsStarts = new ArrayList<>();
     private Point2D pacManStart;
 
+    public Field[][] getBoard() {
+        return board;
+    }
+
+    public List<Point2D> getGhostsStarts() {
+        return ghostsStarts;
+    }
+
+    public int getPacDotsOnStart() {
+        return pacDotsOnStart;
+    }
+
+    public Point2D getPacManStart() {
+        return pacManStart;
+    }
+
+    public int getNumberOfRows() {
+        return board.length;
+    }
+
+    public int getNumberOfColumns() {
+        if (board.length == 0) {
+            return 0;
+        } else {
+            return board[0].length;
+        }
+    }
+
+    public Field getField(int x, int y) {
+        if (x < 0 || y < 0 || x >= board.length || y >= board[x].length || board[x][y] == null) {
+            throw new IllegalArgumentException("specified field is not on the board");
+        }
+        return board[x][y];
+    }
+
+    public BoardInfo getBoardInfo() {
+        return (BoardInfo) this;
+    }
+
+    public FieldInfo getFieldInfo(Point2D p) {
+        if (p == null || p.getX() < 0 || p.getY() < 0 || p.getX() >= board.length
+                || p.getY() >= board[(int) p.getX()].length
+                || board[(int) p.getX()][(int) p.getY()] == null) {
+            throw new IllegalArgumentException("specified field not on the board");
+        }
+        return (FieldInfo) board[(int) p.getX()][(int) p.getY()];
+    }
+
+    public FieldInfo getFieldInfo(int x, int y) {
+        if (x < 0 || y < 0 || x >= board.length || y >= board[x].length || board[x][y] == null) {
+            throw new IllegalArgumentException("specified field not on the board");
+        }
+        return (FieldInfo) board[x][y];
+    }
+
     /**
      * Creates a new board with given rows and columns from the {@code Field} array. Saves the start position of
      * the ghosts, checks the amount of free fields and Pac-Man starting fields, and populates the list of
@@ -106,12 +161,5 @@ public class Board {
                 }
             }
         }
-    }
-
-    public FieldInfo getFieldInfo(Point2D point) {
-        if (point == null) {
-            throw new IllegalArgumentException("Invalid point to get info from");
-        }
-        return null;
     }
 }
