@@ -1,18 +1,16 @@
 package game;
 
-import javafx.geometry.Point2D;
-
 import java.util.List;
 
 public interface BoardInfo {
 
-    FieldInfo getFieldInfo(Point2D point);
+    FieldInfo getFieldInfo(Point point);
 
     FieldInfo getFieldInfo(int x, int y);
 
-    List<Point2D> getGhostsStart();
+    List<Point> getGhostsStart();
 
-    Point2D getPacManStart();
+    Point getPacManStart();
 
     int getPacDotsOnStart();
 

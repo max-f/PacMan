@@ -1,3 +1,3 @@
-# PacMan
+# PacMan (WIP)
 
-Basic implementation for learning purposes (especially JavaFX and gradle).
+Basic implementation for learning purposes (gradle, JavaFX, ... ).

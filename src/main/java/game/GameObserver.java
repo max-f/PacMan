@@ -1,7 +1,6 @@
 package game;
 
 import enums.ActorType;
-import javafx.geometry.Point2D;
 
 /**
  * GameObserver can register at a {@code GameObservable} to be notified when the
@@ -37,7 +36,7 @@ public interface GameObserver {
      *
      * @param p The coordinates of the field where the extra item has been placed.
      */
-    void extraItemPlaced(Point2D p);
+    void extraItemPlaced(Point p);
 
     /**
      * This method is called by the GameObservable every time an extra item is

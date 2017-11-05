@@ -1,19 +1,21 @@
 package game;
 
-
 import enums.ActorType;
-import javafx.geometry.Point2D;
+import enums.Direction;
+import view.ActorController;
 
 public abstract class Actor {
 
     protected ActorType actorType;
-    protected Point2D position;
+    protected Point position;
 
-    public Point2D getPosition() {
+    private ActorController autoplayer = null;
+
+    public Point getPosition() {
         return position;
     }
 
-    public void setPosition(Point2D position) {
+    public void setPosition(Point position) {
         if (position == null) {
             throw new IllegalArgumentException("Invalid position");
         }
@@ -21,7 +23,7 @@ public abstract class Actor {
     }
 
     public void setPosition(int x, int y) {
-        position = new Point2D(x, y);
+        position = new Point(x, y);
     }
 
     public ActorType getActorType() {
@@ -30,5 +32,16 @@ public abstract class Actor {
 
     public void setActorType(ActorType actorType) {
         this.actorType = actorType;
+    }
+
+    public void initController(ActorController controller) {
+        this.autoplayer = controller;
+    }
+
+    public Direction getMove() {
+        if (autoplayer != null) {
+            return autoplayer.getMove();
+        }
+        return null;
     }
 }

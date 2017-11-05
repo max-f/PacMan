@@ -28,12 +28,20 @@ public class Field {
         return actor;
     }
 
+    public boolean hasActor() {
+        return actor != null;
+    }
+
     public boolean hasPacDot() {
         return pacDot;
     }
 
     public boolean hasPowerPellet() {
         return powerPellet;
+    }
+
+    public boolean hasExtraItem() {
+        return extraItem != null;
     }
 
     public ExtraItem getExtraItem() {
@@ -59,8 +67,7 @@ public class Field {
     }
 
     /**
-     * Placing a pac-dot on the {@code Field}. It is only allowed to do so on a
-     * field of type FREE.
+     * Placing a pac-dot on the {@code Field}. It is only allowed to do so on a field of type FREE.
      *
      * @param pacDot if a pac-dot is to be set or not.
      * @throws IllegalStateException if the {@code Field} is not of type FREE.
@@ -73,8 +80,7 @@ public class Field {
     }
 
     /**
-     * Placing a power pellet on the {@code Field}. It is only allowed to do so on a
-     * field of type POWER_PELLET.
+     * Placing a power pellet on the {@code Field}. It is only allowed to do so on a field of type POWER_PELLET.
      *
      * @param powerPellet if a power pellet is to be set or not.
      * @throws IllegalStateException if the {@code Field} is not of type POWER_PELLET.
@@ -87,8 +93,8 @@ public class Field {
     }
 
     /**
-     * Places an {@code ExtraItem} on the field. It is only allowed to do so on a field
-     * which is not of type WALL or GHOST_START.
+     * Places an {@code ExtraItem} on the field. It is only allowed to do so on a field which is not of type WALL or
+     * GHOST_START.
      *
      * @param extraItem the {@code ExtraItem} to place on the field.
      * @throws IllegalStateException if the {@code Field} is of type WALL or GHOST_START.
@@ -105,8 +111,7 @@ public class Field {
      *
      * @param actor The {@code Actor} to enter the field
      * @throws IllegalArgumentException if the given {@code Actor} is null.
-     * @throws IllegalStateException if the {@code Actor} can not be placed on the {@code Field}.
-     * 
+     * @throws IllegalStateException    if the {@code Actor} can not be placed on the {@code Field}.
      */
     public void placeActor(Actor actor) {
         if (actor == null) {
@@ -128,8 +133,7 @@ public class Field {
     }
 
     /**
-     * This method checks what happens if the given actor enters this field and returns
-     * the corresponding event.
+     * This method checks what happens if the given actor enters this field and returns the corresponding event.
      *
      * @param incomingActor the ${@code Actor} that wants to enter the field.
      * @return the ${@code Event} that occurs if this actor would enter the field.
@@ -177,12 +181,10 @@ public class Field {
     }
 
     /**
-     * The String of a ${@code Field} should have the following format:
-     * [Fieldtype, PacDot?, PowerPellet?, ExtraItem, ActorType]
-     * The last two entries are optional. If they are null, they don't appear
-     * in the result string.
+     * The String of a ${@code Field} should have the following format: [Fieldtype, PacDot?, PowerPellet?, ExtraItem,
+     * ActorType] The last two entries are optional. If they are null, they don't appear in the result string.
      *
-     * @return  the string representation
+     * @return the string representation
      */
     public String toString() {
         StringBuilder sb = new StringBuilder("[");

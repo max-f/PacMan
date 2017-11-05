@@ -1,7 +1,6 @@
 package game;
 
 import enums.GhostCharacter;
-import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
 
 
@@ -12,7 +11,7 @@ public interface GhostInfo {
      *
      * @return the position of this ghost.
      */
-    Point2D getPosition();
+    Point getPosition();
 
     /**
      * Returns the color of the ghost.

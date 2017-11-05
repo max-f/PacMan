@@ -2,13 +2,12 @@ package game;
 
 import enums.ActorType;
 import enums.GhostCharacter;
-import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
 
 public class Ghost extends Actor implements GhostInfo {
     private GhostCharacter character;
 
-    public Ghost(Point2D position, GhostCharacter character) {
+    public Ghost(Point position, GhostCharacter character) {
         if (position == null || character == null) {
             throw new IllegalArgumentException("Invalid position or character when trying to create new ghost");
         }
@@ -32,7 +31,7 @@ public class Ghost extends Actor implements GhostInfo {
         StringBuilder sb = new StringBuilder("[");
         sb.append(this.actorType);
         sb.append(", character: ").append(this.character);
-        sb.append(", position: (").append(this.position.getX()).append(",").append(this.position.getX()).append(")");
+        sb.append(", position: (").append(this.position.x).append(",").append(this.position.y).append(")");
         sb.append(", color: ").append(this.character.getColor().toString());
         sb.append("]");
         return sb.toString();

@@ -1,7 +1,6 @@
 package game;
 
 import enums.ActorType;
-import javafx.geometry.Point2D;
 
 /**
  * Class provides default implementations for all {@link GameObserver} methods.
@@ -24,7 +23,7 @@ public abstract class GameObserverAdapter implements GameObserver {
     }
 
     @Override
-    public void extraItemPlaced(Point2D p) {
+    public void extraItemPlaced(Point p) {
     }
 
     @Override
