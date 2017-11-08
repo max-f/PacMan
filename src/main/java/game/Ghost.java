@@ -7,7 +7,7 @@ import javafx.scene.paint.Color;
 public class Ghost extends Actor implements GhostInfo {
     private GhostCharacter character;
 
-    public Ghost(Point position, GhostCharacter character) {
+    public Ghost(final Point position, final GhostCharacter character) {
         if (position == null || character == null) {
             throw new IllegalArgumentException("Invalid position or character when trying to create new ghost");
         }
@@ -35,6 +35,15 @@ public class Ghost extends Actor implements GhostInfo {
         sb.append(", color: ").append(this.character.getColor().toString());
         sb.append("]");
         return sb.toString();
+    }
+
+    public Point findStartingPosition(final Board board) {
+        for (Point ghostStart : board.getGhostsStarts()) {
+            if (!board.getField(ghostStart).hasActor()) {
+                return ghostStart;
+            }
+        }
+        return null;
     }
 
 }

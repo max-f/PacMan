@@ -231,28 +231,28 @@ public class PacManGame {
                 if (newX - 1 < 0) {
                     newX = board.getBoard().length - 1;
                 } else {
-                    newX -= 1;
+                    newX--;
                 }
                 break;
             case DOWN:
                 if (newX + 1 == board.getBoard().length) {
                     newX = 0;
                 } else {
-                    newX += 1;
+                    newX++;
                 }
                 break;
             case LEFT:
                 if (newY - 1 < 0) {
                     newY = board.getBoard()[0].length - 1;
                 } else {
-                    newY -= 1;
+                    newY--;
                 }
                 break;
             case RIGHT:
                 if (newY + 1 == board.getBoard()[0].length) {
                     newY = 0;
                 } else {
-                    newY += 1;
+                    newY++;
                 }
                 break;
         }
@@ -268,39 +268,61 @@ public class PacManGame {
             case MOVE_POSSIBLE:
                 if (actor instanceof PacMan) {
                     if (newField.hasPacDot()) {
-                        board.getField(newX, newY).setPacDot(false);
-                        pacDotCounter += 1;
-                        score += 1;
+                        handlePacManEatsPacDot(newField);
                     }
                     if (newField.hasPowerPellet()) {
-                        board.getField(newX, newY).setPowerPellet(false);
-                        powerPelletMode = true;
-                        powerPelletDuration = POWER_PELLET_TIME;
-                        notifyObserversStartPowerPelletMode();
-                        score += 30;
+                        handlePacManEatsPowerPellet(newField);
                     }
                     if (newField.hasExtraItem()) {
-                        score += newField.getExtraItem().getPoints();
-                        newField.setExtraItem(null);
-                        extraItemPosition = null;
-                        notifyObserversExtraItemVanished();
+                        handlePacManEatsExtraItem(newField);
                     }
                 }
-                board.getField(currentPos.x, currentPos.y).removeActor();
+                board.getField(currentPos).removeActor();
                 notifyObserversActorRemoved(actor.getActorType(), currentPos.x, currentPos.y);
                 actor.setPosition(newX, newY);
-                board.getField(currentPos).placeActor(actor);
+                board.getField(newX, newY).placeActor(actor);
                 notifyObserversActorSet(actor.getActorType(), newX, newY);
                 return true;
             case PACMAN_GHOST_COLLISION:
                 if (powerPelletMode) {
                     if (actor instanceof Ghost) {
+                        board.getField(currentPos.x, currentPos.y).removeActor();
+                        notifyObserversActorRemoved(actor.getActorType(), currentPos.x, currentPos.y);
+
+                        Point ghostStart = ((Ghost) actor).findStartingPosition(board);
+                        actor.setPosition(ghostStart);
+                        board.getField(ghostStart).placeActor(actor);
+                        notifyObserversActorSet(GHOST, ghostStart.x, ghostStart.y);
+                        score += 25 * stageCounter;
+                    } else {
 
                     }
                 }
+
         }
 
         return false;
+    }
+
+    private void handlePacManEatsPacDot(final Field field) {
+        pacDotCounter++;
+        score++;
+        field.setPacDot(false);
+    }
+
+    private void handlePacManEatsPowerPellet(final Field field) {
+        score += 30;
+        field.setPowerPellet(false);
+        powerPelletMode = true;
+        powerPelletDuration = POWER_PELLET_TIME;
+        notifyObserversStartPowerPelletMode();
+    }
+
+    private void handlePacManEatsExtraItem(final Field field) {
+        score += field.getExtraItem().getPoints();
+        field.setExtraItem(null);
+        extraItemPosition = null;
+        notifyObserversExtraItemVanished();
     }
 
     private void placeExtraItem() {
